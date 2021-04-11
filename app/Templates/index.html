@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <title>Real Time Notification</title>
+    <style>
+        div{
+            text-align:center!important;
+            font-size:xx-large;
+            font-family: sans-serif;
+            background-color: #6f5499;
+            height: 100px;
+            width: 30;
+            margin: 1%;
+            padding: 20px;
+            position: center;
+            color: white;
+            animation: slide-up 0.4s ease;
+            @keyframes slide-up {
+                0% {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                100% {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        }
+    </style>
+</head>
+<body>
+    <br><br><br>
+    <h1 id="app" class="text-center">Welcome !!!</h1>
+    <h1 class="text-center">This is a websocket implemented django webapp.</h1><br><br>
+    <script>
+        var socket = new WebSocket('ws://localhost:8000/ws/some_url/')
+        var a = [];
+        socket.onmessage = function(event){
+            var data = JSON.parse(event.data);
+            console.log(data);
+            var ele = document.createElement('div');
+            var txt = document.createTextNode(data.message);
+            ele.appendChild(txt);
+            document.body.appendChild(ele);
+        }
+    </script>
+</body>
+</html>
+
